@@ -17,6 +17,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 interface UserProp {
   id: string;
@@ -37,13 +38,13 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white border-b border-gray-200">
+    <nav className="bg-card border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-<Link href="/dashboard" className="flex items-center space-x-2">
-            <Logo className="h-8 w-8" />
-              <span className="text-xl font-bold text-gray-900 hidden sm:block">
+            <Link href="/dashboard" className="flex items-center space-x-2">
+              <Logo className="h-8 w-8" />
+              <span className="text-xl font-bold text-foreground hidden sm:block">
                 CloseCycle
               </span>
             </Link>
@@ -58,8 +59,8 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
                     className={cn(
                       "inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       isActive
-                        ? "text-blue-700 bg-blue-50"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
                     )}
                   >
                     <Icon className="h-4 w-4 mr-2" />
@@ -70,22 +71,23 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            <ThemeToggle />
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent transition-colors"
               >
                 <Avatar
                   size="sm"
                   src={user?.avatarUrl ?? undefined}
                   fallback={user?.name ?? user?.email ?? "U"}
                 />
-                <span className="hidden sm:block text-sm font-medium text-gray-700">
+                <span className="hidden sm:block text-sm font-medium text-foreground">
                   {user?.name ?? user?.email}
                 </span>
-                <ChevronDown className="h-4 w-4 text-gray-400" />
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
               </button>
 
               {userMenuOpen && (
@@ -94,12 +96,12 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
                     className="fixed inset-0 z-10"
                     onClick={() => setUserMenuOpen(false)}
                   />
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
-                    <div className="p-4 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                  <div className="absolute right-0 mt-2 w-64 bg-card rounded-lg shadow-lg border border-border z-20">
+                    <div className="p-4 border-b border-border">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {user?.name ?? "User"}
                       </p>
-                      <p className="text-xs text-gray-500 truncate mt-0.5">
+                      <p className="text-xs text-muted-foreground truncate mt-0.5">
                         {user?.email}
                       </p>
                     </div>
@@ -107,7 +109,7 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
                       <Link
                         href="/dashboard/settings"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-50"
+                        className="flex items-center px-3 py-2 text-sm text-foreground rounded-md hover:bg-accent"
                       >
                         <Settings className="h-4 w-4 mr-2" />
                         Settings
@@ -115,7 +117,7 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
                       <form action={signout}>
                         <button
                           type="submit"
-                          className="flex items-center w-full px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-gray-50"
+                          className="flex items-center w-full px-3 py-2 text-sm text-foreground rounded-md hover:bg-accent"
                         >
                           <LogOut className="h-4 w-4 mr-2" />
                           Sign Out
@@ -129,7 +131,7 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
 
             <button
               type="button"
-              className="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+              className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -143,7 +145,7 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200">
+        <div className="md:hidden border-t border-border">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => {
               const Icon = link.icon;
@@ -156,8 +158,8 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
                   className={cn(
                     "flex items-center px-3 py-2 rounded-md text-sm font-medium",
                     isActive
-                      ? "text-blue-700 bg-blue-50"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   )}
                 >
                   <Icon className="h-4 w-4 mr-3" />
