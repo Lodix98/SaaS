@@ -35,8 +35,8 @@ export default function LoginPage() {
   return (
     <div className="w-full max-w-sm">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900">Welcome back</h1>
-        <p className="text-sm text-gray-500 mt-1.5">Sign in to your account</p>
+        <h1 className="text-2xl font-semibold text-foreground">Welcome back</h1>
+        <p className="text-sm text-muted-foreground mt-1.5">Sign in to your account</p>
       </div>
 
       <form action={formAction} className="space-y-4">
@@ -47,9 +47,9 @@ export default function LoginPage() {
       </form>
 
       <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
+        <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white px-2 text-gray-400">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
 
@@ -63,7 +63,7 @@ export default function LoginPage() {
         Google
       </Button>
 
-      <p className="text-sm text-gray-500 text-center mt-8">
+      <p className="text-sm text-muted-foreground text-center mt-8">
         Don&apos;t have an account?{" "}
         <Link href="/signup" className="text-primary font-medium hover:underline underline-offset-4">Sign up</Link>
       </p>

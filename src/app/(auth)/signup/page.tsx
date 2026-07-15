@@ -23,8 +23,8 @@ export default function SignupPage() {
   return (
     <div className="w-full max-w-sm">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900">Create your account</h1>
-        <p className="text-sm text-gray-500 mt-1.5">Start your 14-day free trial</p>
+        <h1 className="text-2xl font-semibold text-foreground">Create your account</h1>
+        <p className="text-sm text-muted-foreground mt-1.5">Start your 14-day free trial</p>
       </div>
 
       <form action={formAction} className="space-y-4">
@@ -35,7 +35,7 @@ export default function SignupPage() {
         <Button type="submit" className="w-full" loading={pending}>Create Account</Button>
       </form>
 
-      <p className="text-sm text-gray-500 text-center mt-8">
+      <p className="text-sm text-muted-foreground text-center mt-8">
         Already have an account?{" "}
         <Link href="/login" className="text-primary font-medium hover:underline underline-offset-4">Sign in</Link>
       </p>
