@@ -1,22 +1,17 @@
 import { forwardRef, SVGProps } from "react";
+import { cn } from "@/lib/utils";
 
 export const Logo = forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>(
-  ({ className = "w-9 h-9", ...props }, ref) => (
+  ({ className, ...props }, ref) => (
     <svg
       ref={ref}
-      className={className}
+      className={cn("w-9 h-9", className)}
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <defs>
-        <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#2563eb" />
-          <stop offset="100%" stopColor="#3b82f6" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8" fill="url(#logoGradient)" />
+      <rect width="32" height="32" rx="8" fill="currentColor" className="text-primary" />
       <path
         d="M10 12h12M10 16h8M10 20h10"
         stroke="white"
