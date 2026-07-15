@@ -94,7 +94,7 @@ export async function POST(request: Request) {
 
         if (user && invoice.charge) {
           const charge = await stripe.charges.retrieve(invoice.charge);
-          if (charge.receipt_url) {
+          if (charge.receipt_url && resend) {
             await resend.emails.send({
               from: "CloseCycle <billing@closecycle.app>",
               to: user.email,
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
           where: { stripeCustomerId: customerId },
         });
 
-        if (user) {
+        if (user && resend) {
           await resend.emails.send({
             from: "CloseCycle <billing@closecycle.app>",
             to: user.email,

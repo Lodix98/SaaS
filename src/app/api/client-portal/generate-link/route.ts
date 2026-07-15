@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
   const portalUrl = `${process.env.NEXT_PUBLIC_APP_URL}/portal?token=${token}`;
 
-  if (client.email) {
+  if (client.email && resend) {
     await resend.emails.send({
       from: "CloseCycle <notifications@closecycle.app>",
       to: client.email,
