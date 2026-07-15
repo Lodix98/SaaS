@@ -280,7 +280,7 @@ export default function LandingPage() {
               &copy; {new Date().getFullYear()} CloseCycle. Built for solo bookkeepers.
             </p>
           </div>
-        </div      </footer>
+        </div></footer>
     </div>
   );
 }
