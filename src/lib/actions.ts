@@ -155,6 +155,7 @@ export async function createCheckoutSession() {
   if (!user) throw new Error("Unauthorized");
 
   const { stripe } = await import("@/lib/stripe");
+  if (!stripe) throw new Error("Stripe not configured");
 
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (!dbUser) throw new Error("User not found");
@@ -195,6 +196,7 @@ export async function createBillingPortalSession() {
   if (!user) throw new Error("Unauthorized");
 
   const { stripe } = await import("@/lib/stripe");
+  if (!stripe) throw new Error("Stripe not configured");
 
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (!dbUser?.stripeCustomerId) throw new Error("No billing customer found");
