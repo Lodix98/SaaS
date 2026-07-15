@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { PortalView } from "./portal-view";
+import { Logo } from "@/components/logo";
 
 export default async function PortalPage({
   searchParams,
@@ -60,7 +61,7 @@ export default async function PortalPage({
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl font-bold">CC</span>
+              <Logo className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">{session.client.name}</h1>
             <p className="text-gray-500 mt-1">Monthly Document Upload</p>

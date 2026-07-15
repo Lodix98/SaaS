@@ -270,9 +270,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-blue-400 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">CC</span>
-              </div>
+              <Logo className="w-8 h-8" />
               <span className="text-sm font-medium text-foreground">CloseCycle</span>
             </div>
             <p className="text-muted-foreground text-sm">

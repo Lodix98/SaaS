@@ -16,6 +16,7 @@ import {
   X,
   ChevronDown,
 } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 interface UserProp {
   id: string;
@@ -40,10 +41,8 @@ export function DashboardNav({ user }: { user: UserProp | null }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/dashboard" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CC</span>
-              </div>
+<Link href="/dashboard" className="flex items-center space-x-2">
+            <Logo className="h-8 w-8" />
               <span className="text-xl font-bold text-gray-900 hidden sm:block">
                 CloseCycle
               </span>

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { completeOnboarding, addDocumentTemplate } from "@/lib/actions";
 import { createClient } from "@/lib/supabase/client";
 import { CheckCircle, ArrowRight, ArrowLeft, Sparkles, Building2, FileText } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 const steps = [
   { id: "welcome", title: "Welcome", icon: Sparkles },
@@ -86,8 +87,8 @@ export function OnboardingForm({ userName }: { userName?: string }) {
   return (
     <div className="w-full max-w-lg">
       <div className="mb-8 text-center">
-        <div className="h-14 w-14 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center mx-auto mb-4">
-          <span className="text-white font-bold text-xl">CC</span>
+        <div className="h-14 w-14 rounded-full bg-gradient-to-br from-primary to-blue-500 flex items-center justify-center mx-auto mb-4">
+          <Logo className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900">CloseCycle</h1>
         <p className="text-gray-500 mt-1">Monthly close tracking for solo bookkeepers</p>
