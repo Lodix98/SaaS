@@ -239,6 +239,7 @@ export async function cancelSubscription() {
   if (!user) throw new Error("Unauthorized");
 
   const { stripe } = await import("@/lib/stripe");
+  if (!stripe) throw new Error("Stripe not configured");
 
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (!dbUser?.stripeSubscriptionId) throw new Error("No active subscription");
