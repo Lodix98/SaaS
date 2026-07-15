@@ -24,27 +24,28 @@ export function ThemeToggle() {
     ),
     system: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth={2} />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8M12 17v4" />
       </svg>
     ),
   };
 
   const labels = { light: "Light", dark: "Dark", system: "System" };
 
+  const nextTheme = (() => {
+    const themes = ["light", "dark", "system"] as const;
+    return themes[(themes.indexOf(theme) + 1) % 3];
+  })();
+
   return (
-    <div className="relative">
-      <button
-        onClick={() => {
-          const themes: Array<"light" | "dark" | "system"> = ["light", "dark", "system"];
-          const next = themes[(themes.indexOf(theme) + 1) % 3];
-          setTheme(next);
-        }}
-        className="flex items-center gap-2 p-2 rounded-xl bg-secondary text-secondary-foreground hover:bg-accent transition-colors"
-        aria-label={`Current theme: ${labels[theme]}. Click to cycle.`}
-      >
-        {icons[theme]}
-        <span className="hidden sm:inline text-sm font-medium capitalize">{labels[theme]}</span>
-      </button>
-    </div>
+    <button
+      onClick={() => setTheme(nextTheme)}
+      className="flex items-center gap-2 p-2 rounded-xl bg-secondary text-secondary-foreground hover:bg-accent transition-colors"
+      aria-label={`Theme: ${labels[theme]}. Click for ${labels[nextTheme]}.`}
+      title={`Theme: ${labels[theme]}. Click for ${labels[nextTheme]}.`}
+    >
+      {icons[theme]}
+      <span className="hidden sm:inline text-sm font-medium capitalize">{labels[theme]}</span>
+    </button>
   );
 }
