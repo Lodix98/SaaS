@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum SubscriptionStatus {
+  trialing
+  active
+  past_due
+  canceled
+  inactive
+}
+
+model User {
+  id                   String             @id @default(uuid()) @db.Uuid
+  email                String             @unique
+  name                 String?
+  avatarUrl            String?            @map("avatar_url")
+  stripeCustomerId     String?            @map("stripe_customer_id") @unique
+  stripeSubscriptionId String?            @map("stripe_subscription_id")
+  subscriptionStatus   SubscriptionStatus @default(trialing) @map("subscription_status")
+  trialEndsAt          DateTime?          @map("trial_ends_at")
+  onboardingCompleted  Boolean            @default(false) @map("onboarding_completed")
+  createdAt            DateTime           @default(now()) @map("created_at")
+  updatedAt            DateTime           @updatedAt @map("updated_at")
+
+  clients Client[]
+
+  @@map("users")
+}
+
+model Client {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  name      String
+  email     String?
+  notes     String?
+  status    String   @default("active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documentTemplates  DocumentTemplate[]
+  monthlyCycles      MonthlyCycle[]
+  clientPortalSessions ClientPortalSession[]
+
+  @@map("clients")
+}
+
+model DocumentTemplate {
+  id          String   @id @default(uuid()) @db.Uuid
+  clientId    String   @map("client_id") @db.Uuid
+  name        String
+  description String?
+  reminderDay Int      @default(1) @map("reminder_day")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  client             Client               @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  documentSubmissions DocumentSubmission[]
+
+  @@map("document_templates")
+}
+
+model MonthlyCycle {
+  id        String   @id @default(uuid()) @db.Uuid
+  clientId  String   @map("client_id") @db.Uuid
+  month     DateTime
+  status    String   @default("not_started")
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  client              Client               @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  documentSubmissions DocumentSubmission[]
+  reminderLogs        ReminderLog[]
+
+  @@unique([clientId, month])
+  @@map("monthly_cycles")
+}
+
+model DocumentSubmission {
+  id               String   @id @default(uuid()) @db.Uuid
+  monthlyCycleId   String   @map("monthly_cycle_id") @db.Uuid
+  documentTemplateId String? @map("document_template_id") @db.Uuid
+  fileUrl          String   @map("file_url")
+  fileName         String?  @map("file_name")
+  notes            String?
+  submittedAt      DateTime @default(now()) @map("submitted_at")
+
+  monthlyCycle    MonthlyCycle    @relation(fields: [monthlyCycleId], references: [id], onDelete: Cascade)
+  documentTemplate DocumentTemplate? @relation(fields: [documentTemplateId], references: [id])
+
+  @@map("document_submissions")
+}
+
+model ReminderLog {
+  id             String   @id @default(uuid()) @db.Uuid
+  monthlyCycleId String   @map("monthly_cycle_id") @db.Uuid
+  type           String
+  sentAt         DateTime @default(now()) @map("sent_at")
+  openedAt       DateTime? @map("opened_at")
+
+  monthlyCycle MonthlyCycle @relation(fields: [monthlyCycleId], references: [id], onDelete: Cascade)
+
+  @@map("reminder_logs")
+}
+
+model ClientPortalSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  clientId  String   @map("client_id") @db.Uuid
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("client_portal_sessions")
+}
