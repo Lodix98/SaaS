@@ -4,6 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { resend } from "@/lib/resend";
 
 export async function POST(request: Request) {
+  if (!stripe) {
+    return NextResponse.json({ error: "Stripe not configured" }, { status: 500 });
+  }
+
   const body = await request.text();
   const signature = request.headers.get("stripe-signature") ?? "";
 
