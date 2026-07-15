@@ -54,15 +54,11 @@ export function ThemeProvider({ children, defaultTheme = "system" }: { children:
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, [theme, mounted]);
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
+  const value = mounted
+    ? { theme, resolvedTheme, setTheme }
+    : { theme: defaultTheme, resolvedTheme: "light" as const, setTheme: () => {} };
 
-  return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {

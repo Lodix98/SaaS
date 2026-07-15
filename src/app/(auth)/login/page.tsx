@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 async function loginAction(prev: { error: string } | null, formData: FormData) {
   try {
     await login(formData);

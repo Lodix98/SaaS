@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 async function signupAction(prev: { error: string } | null, formData: FormData) {
   try {
     await signup(formData);
