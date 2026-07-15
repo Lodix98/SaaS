@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/logo";
 
 function useScrollReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -69,9 +70,7 @@ export default function LandingPage() {
       <header className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-primary to-blue-400 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
-              <span className="text-white font-bold text-sm">CC</span>
-            </div>
+            <Logo className="group-hover:scale-105 group-hover:shadow-md transition-transform duration-300" />
             <span className="font-semibold text-lg text-foreground">CloseCycle</span>
           </Link>
           <div className="flex items-center gap-4">
