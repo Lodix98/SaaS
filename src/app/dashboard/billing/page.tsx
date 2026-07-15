@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { createBillingPortalSession, cancelSubscription, createCheckoutSession } from "@/lib/actions";
 import { CreditCard, AlertTriangle, CheckCircle, XCircle, FileText, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/logo";
 
 const subscriptionLabels: Record<string, string> = {
   trialing: "Trial",
@@ -62,10 +63,11 @@ export default async function BillingPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between p-4 rounded-lg border border-gray-200">
-            <div>
+            <div className="flex items-center gap-2">
+              <Logo className="w-6 h-6" />
               <p className="text-lg font-semibold text-gray-900">CloseCycle Pro</p>
-              <p className="text-sm text-gray-500 mt-1">$29/month - Monthly Close Tracking</p>
             </div>
+            <p className="text-sm text-gray-500 mt-1">$29/month - Monthly Close Tracking</p>
             <Badge className={subscriptionColors[dbUser.subscriptionStatus] ?? "bg-gray-100 text-gray-600"}>
               {subscriptionLabels[dbUser.subscriptionStatus] ?? dbUser.subscriptionStatus}
             </Badge>
